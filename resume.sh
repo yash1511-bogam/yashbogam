@@ -57,10 +57,7 @@ if [ -n "$SHELL_RC" ]; then
   echo "$ALIAS_LINE" >> "$SHELL_RC"
 fi
 
-printf "\n"
-bun run "$HOME/.yash/index.ts" </dev/tty
+printf "\n  ✓ Installed! Type 'yash' to launch.\n\n"
 
-# restart user's shell so alias is available immediately
-USER_SHELL=$(basename "$SHELL")
-printf "\n  ✓ 'yash' command is now available. Reloading shell...\n\n"
+# reload shell so alias works immediately
 exec "$SHELL" -l
