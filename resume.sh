@@ -43,7 +43,7 @@ else
 fi
 
 # ── Add 'yash' command
-ALIAS_LINE='alias yash="bash $HOME/.yash/launch.sh"'
+ALIAS_LINE="alias yash='bash $HOME/.yash/launch.sh'"
 SHELL_RC=""
 if [ -f "$HOME/.zshrc" ]; then SHELL_RC="$HOME/.zshrc"
 elif [ -f "$HOME/.bashrc" ]; then SHELL_RC="$HOME/.bashrc"
@@ -57,5 +57,5 @@ if [ -n "$SHELL_RC" ]; then
   echo "$ALIAS_LINE" >> "$SHELL_RC"
 fi
 
-printf "\n"
+printf "\n  ✓ Type 'yash' in a new terminal to launch\n\n"
 bun run "$HOME/.yash/index.ts" </dev/tty
