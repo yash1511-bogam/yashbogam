@@ -43,7 +43,7 @@ else
 fi
 
 # ── Add 'yash' command
-ALIAS_LINE="alias yash='bash $HOME/.yash/launch.sh'"
+ALIAS_LINE="alias yash='bash ~/.yash/launch.sh'"
 SHELL_RC=""
 if [ -f "$HOME/.zshrc" ]; then SHELL_RC="$HOME/.zshrc"
 elif [ -f "$HOME/.bashrc" ]; then SHELL_RC="$HOME/.bashrc"
