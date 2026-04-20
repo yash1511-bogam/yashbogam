@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bogam Yashwanth — AI Product Builder</title>
+<meta name="description" content="AI Product Builder, Prompt Engineer, and No-Code/AI Developer with 75+ shipped projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ── LIGHT ── */
+:root{
+  --bg:#ffffff;--bg2:#f8f9fa;--text:#18181b;--text2:#52525b;--text3:#71717a;
+  --accent:#18181b;--accent2:#27272a;--border:#e4e4e7;--card:#ffffff;
+  --card-shadow:none;--tag-bg:#f4f4f5;--tag-text:#3f3f46;
+  --section-line:#d4d4d8;--heading-font:'Inter',system-ui,sans-serif;
+  --body-font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
+  --name-size:2rem;--name-weight:700;--name-spacing:-.02em;--name-transform:none;
+  --section-size:1.1rem;--section-weight:700;--section-transform:uppercase;
+  --section-spacing:.06em;--section-border:2px solid var(--section-line);
+  --body-size:.92rem;--card-radius:10px;--card-border:1px solid var(--border);
+  --tag-radius:4px;--tag-font:var(--mono);--li-bullet:"▸ ";
+  --title-weight:600;--container-max:800px;
+}
+
+/* ── DARK ── */
+[data-theme="dark"]{
+  --bg:#111113;--bg2:#1a1a1d;--text:#e4e4e7;--text2:#a1a1aa;--text3:#71717a;
+  --accent:#d4d4d8;--accent2:#a1a1aa;--border:#27272a;--card:#111113;
+  --card-shadow:none;--tag-bg:#1e1e22;--tag-text:#a1a1aa;
+  --section-line:#3f3f46;
+}
+
+/* ── STUDIO ── dark editorial, grain, per-project gradient hover */
+[data-theme="studio"]{
+  --bg:#0c0a09;--bg2:#1c1917;--text:#fafaf9;--text2:#a8a29e;--text3:#78716c;
+  --accent:#e7e5e4;--accent2:#d6d3d1;--border:#292524;--card:#1c1917;
+  --card-shadow:none;--tag-bg:rgba(231,229,228,.06);--tag-text:#a8a29e;
+  --section-line:#44403c;
+  --heading-font:'Instrument Serif',Georgia,serif;
+  --body-font:'Cormorant Garamond','Garamond',serif;
+  --name-size:3rem;--name-weight:400;--name-spacing:.03em;--name-transform:none;
+  --section-size:1.35rem;--section-weight:400;--section-transform:none;
+  --section-spacing:.16em;--section-border:none;
+  --body-size:1.08rem;--card-radius:6px;--card-border:1px solid #292524;
+  --tag-radius:3px;--tag-font:'Cormorant Garamond',serif;--li-bullet:"— ";
+  --title-weight:400;--container-max:800px;
+}
+
+html{font-size:15px;scroll-behavior:smooth}
+body{font-family:var(--body-font);background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s,color .3s}
+.container{max-width:var(--container-max);margin:0 auto;padding:40px 24px 60px}
+
+/* Header */
+.header{text-align:center;margin-bottom:36px}
+.name{font-family:var(--heading-font);font-size:var(--name-size);font-weight:var(--name-weight);letter-spacing:var(--name-spacing);text-transform:var(--name-transform);margin-bottom:4px}
+.title{font-size:1.05rem;color:var(--accent);font-weight:var(--title-weight);margin-bottom:12px;font-family:var(--body-font)}
+.contact{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;font-size:.85rem;color:var(--text2)}
+.contact a{color:var(--accent);text-decoration:none}
+.contact a:hover{text-decoration:underline}
+.contact span::before{content:"";display:inline-block;width:4px;height:4px;background:var(--text3);border-radius:50%;vertical-align:middle;margin-right:8px}
+.contact span:first-child::before{display:none}
+
+/* Controls */
+.controls{position:fixed;top:16px;right:16px;display:flex;gap:8px;z-index:100}
+.ctrl-btn{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:var(--card-shadow);font-size:15px}
+.ctrl-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.ctrl-btn svg{width:18px;height:18px}
+.ctrl-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Sections */
+.section{margin-bottom:32px}
+.section-title{font-family:var(--heading-font);font-size:var(--section-size);font-weight:var(--section-weight);text-transform:var(--section-transform);letter-spacing:var(--section-spacing);color:var(--text);padding-bottom:8px;border-bottom:var(--section-border);margin-bottom:16px}
+
+/* Summary */
+.summary{font-size:var(--body-size);color:var(--text2);line-height:1.7}
+
+/* Skills */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.skill-group h3{font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-bottom:8px;font-family:var(--body-font)}
+.skill-group ul{list-style:none;font-size:.85rem;color:var(--text2)}
+.skill-group li{padding:2px 0}
+.skill-group li::before{content:var(--li-bullet);color:var(--accent);font-weight:700}
+
+/* Projects */
+/* ── Project cards base (light/dark) ── */
+.project{background:transparent;border:none;border-bottom:1px solid var(--border);border-radius:0;padding:18px 0;margin-bottom:0;box-shadow:none;transition:all .2s}
+.project:last-child{border-bottom:none}
+.project:hover{box-shadow:none;transform:none}
+.project-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:12px}
+.project-name{font-family:var(--heading-font);font-size:1.05rem;font-weight:700}
+.project-link{font-size:.75rem;color:var(--accent);text-decoration:none;white-space:nowrap;font-family:var(--mono)}
+.project-link:hover{text-decoration:underline}
+.project-desc{font-size:.85rem;color:var(--text2);margin-bottom:10px;line-height:1.65}
+.project-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:.7rem;font-weight:500;padding:3px 8px;border-radius:var(--tag-radius);background:var(--tag-bg);color:var(--tag-text);font-family:var(--tag-font)}
+
+/* Experience */
+.exp-item{margin-bottom:16px}
+.exp-title{font-weight:600;font-size:.95rem;font-family:var(--heading-font)}
+.exp-meta{font-size:.82rem;color:var(--text3);margin-bottom:4px}
+.exp-desc{font-size:.85rem;color:var(--text2)}
+
+/* Education */
+.edu-item{margin-bottom:12px}
+.edu-title{font-weight:600;font-size:.92rem;font-family:var(--heading-font)}
+.edu-meta{font-size:.82rem;color:var(--text3)}
+
+/* ═══ STUDIO OVERRIDES ═══ */
+
+/* Grain overlay on entire page */
+[data-theme="studio"] body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.035;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/* Typography feel */
+[data-theme="studio"] .title{font-style:italic;font-weight:400;font-size:1.15rem;color:#a8a29e}
+[data-theme="studio"] .contact{font-family:'Cormorant Garamond',serif;font-size:.95rem;letter-spacing:.03em}
+[data-theme="studio"] .skill-group h3{font-family:var(--heading-font);font-weight:400;font-size:1rem;text-transform:none;letter-spacing:.1em;color:#d6d3d1}
+[data-theme="studio"] .skill-group li::before{font-weight:400;color:#78716c}
+[data-theme="studio"] .exp-title{font-weight:400;font-size:1.1rem}
+[data-theme="studio"] .edu-title{font-weight:400;font-size:1.05rem}
+[data-theme="studio"] .ctrl-btn{border-radius:4px;backdrop-filter:blur(8px);background:rgba(28,25,23,.7)}
+[data-theme="studio"] .ctrl-btn.active{background:#fafaf9;color:#0c0a09}
+
+/* Section titles — animated underline reveal */
+[data-theme="studio"] .section-title{
+  display:inline-block;border-bottom:none;padding-bottom:4px;
+  background:linear-gradient(90deg,#78716c,#78716c) no-repeat 0 100%;
+  background-size:0% 1px;transition:background-size .6s cubic-bezier(.22,1,.36,1);
+}
+[data-theme="studio"] .section-title:hover{background-size:100% 1px}
+
+/* ── Project cards base ── */
+/* ── Studio project cards ── */
+[data-theme="studio"] .project,
+[data-theme="studio"] .project:last-child{
+  background:#1c1917 !important;border:1px solid #292524 !important;
+  border-bottom:1px solid #292524 !important;border-radius:6px !important;
+  padding:28px 26px !important;margin-bottom:16px !important;
+  position:relative;overflow:hidden;cursor:default;
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1),border-color .4s ease,box-shadow .4s ease;
+}
+[data-theme="studio"] .project>*{position:relative;z-index:2}
+
+/* Grain + gradient layer — slides in from left */
+[data-theme="studio"] .project::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  transform:translateX(-101%);
+  transition:transform .55s cubic-bezier(.34,1.56,.64,1);
+  background-blend-mode:overlay,normal;
+  background-size:cover;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E"),
+    var(--proj-gradient);
+}
+[data-theme="studio"] .project:hover::before{transform:translateX(0)}
+[data-theme="studio"] .project:hover{
+  transform:translateY(-3px) !important;border-color:var(--proj-border) !important;
+  box-shadow:0 12px 40px var(--proj-glow) !important;
+}
+
+/* Text adjustments on hover */
+[data-theme="studio"] .project-name{font-weight:400;font-size:1.2rem;transition:color .35s ease,letter-spacing .4s cubic-bezier(.22,1,.36,1)}
+[data-theme="studio"] .project:hover .project-name{color:#fff;letter-spacing:.02em}
+[data-theme="studio"] .project:hover .project-desc{color:#e7e5e4}
+[data-theme="studio"] .project:hover .project-link{color:#fafaf9}
+[data-theme="studio"] .project-desc{font-size:.98rem;line-height:1.75;transition:color .35s ease}
+[data-theme="studio"] .tag{font-size:.78rem;font-weight:500;letter-spacing:.01em;padding:4px 10px;
+  border:1px solid #292524;background:transparent;transition:all .35s ease}
+[data-theme="studio"] .project:hover .tag{border-color:var(--proj-tag-border);color:var(--proj-tag-text);background:var(--proj-tag-bg)}
+
+/* ── Per-project gradients ── */
+/* TrustLoop — SaaS/incident ops — deep indigo to violet */
+[data-theme="studio"] .project[data-project="trustloop"]{
+  --proj-gradient:linear-gradient(135deg,#1e1b4b 0%,#312e81 30%,#4c1d95 60%,#5b21b6 100%);
+  --proj-border:#6d28d9;--proj-glow:rgba(109,40,217,.15);
+  --proj-tag-border:rgba(139,92,246,.3);--proj-tag-text:#c4b5fd;--proj-tag-bg:rgba(109,40,217,.15);
+}
+/* CloudVault — cloud storage — deep ocean blue */
+[data-theme="studio"] .project[data-project="cloudvault"]{
+  --proj-gradient:linear-gradient(135deg,#172554 0%,#1e3a5f 30%,#1e40af 60%,#2563eb 100%);
+  --proj-border:#3b82f6;--proj-glow:rgba(59,130,246,.15);
+  --proj-tag-border:rgba(96,165,250,.3);--proj-tag-text:#93c5fd;--proj-tag-bg:rgba(59,130,246,.12);
+}
+/* AgentCall — voice/AI — deep crimson */
+[data-theme="studio"] .project[data-project="agentcall"]{
+  --proj-gradient:linear-gradient(135deg,#3b0a0a 0%,#7f1d1d 30%,#991b1b 60%,#b91c1c 100%);
+  --proj-border:#ef4444;--proj-glow:rgba(239,68,68,.15);
+  --proj-tag-border:rgba(252,165,165,.3);--proj-tag-text:#fca5a5;--proj-tag-bg:rgba(239,68,68,.12);
+}
+/* FlowAI — business — deep emerald */
+[data-theme="studio"] .project[data-project="flowai"]{
+  --proj-gradient:linear-gradient(135deg,#052e16 0%,#064e3b 30%,#065f46 60%,#047857 100%);
+  --proj-border:#10b981;--proj-glow:rgba(16,185,129,.15);
+  --proj-tag-border:rgba(52,211,153,.3);--proj-tag-text:#6ee7b7;--proj-tag-bg:rgba(16,185,129,.12);
+}
+/* AIOpsShield — security — deep amber */
+[data-theme="studio"] .project[data-project="aiopsshield"]{
+  --proj-gradient:linear-gradient(135deg,#2a1505 0%,#451a03 30%,#78350f 60%,#92400e 100%);
+  --proj-border:#d97706;--proj-glow:rgba(217,119,6,.15);
+  --proj-tag-border:rgba(251,191,36,.3);--proj-tag-text:#fcd34d;--proj-tag-bg:rgba(217,119,6,.12);
+}
+/* ZipMount — systems — warm stone */
+[data-theme="studio"] .project[data-project="zipmount"]{
+  --proj-gradient:linear-gradient(135deg,#1c1917 0%,#292524 30%,#3a3633 60%,#44403c 100%);
+  --proj-border:#78716c;--proj-glow:rgba(120,113,108,.15);
+  --proj-tag-border:rgba(168,162,158,.3);--proj-tag-text:#d6d3d1;--proj-tag-bg:rgba(120,113,108,.12);
+}
+/* KanFlow — dev tools — deep forest green */
+[data-theme="studio"] .project[data-project="kanflow"]{
+  --proj-gradient:linear-gradient(135deg,#0a1f02 0%,#14532d 30%,#166534 60%,#15803d 100%);
+  --proj-border:#22c55e;--proj-glow:rgba(34,197,94,.15);
+  --proj-tag-border:rgba(74,222,128,.3);--proj-tag-text:#86efac;--proj-tag-bg:rgba(34,197,94,.12);
+}
+/* WebOS — browser OS — deep sapphire */
+[data-theme="studio"] .project[data-project="webos"]{
+  --proj-gradient:linear-gradient(135deg,#0c1445 0%,#1e3a8a 30%,#1d4ed8 60%,#3b82f6 100%);
+  --proj-border:#60a5fa;--proj-glow:rgba(96,165,250,.15);
+  --proj-tag-border:rgba(147,197,253,.3);--proj-tag-text:#bfdbfe;--proj-tag-bg:rgba(96,165,250,.12);
+}
+
+/* ── Entrance animations ── */
+[data-theme="studio"] .name{animation:sFade .9s cubic-bezier(.22,1,.36,1) both}
+[data-theme="studio"] .title{animation:sFade .9s .08s cubic-bezier(.22,1,.36,1) both}
+[data-theme="studio"] .contact{animation:sFade .9s .16s cubic-bezier(.22,1,.36,1) both}
+[data-theme="studio"] .section{animation:sFade .8s .24s cubic-bezier(.22,1,.36,1) both}
+[data-theme="studio"] .section:nth-child(2){animation-delay:.3s}
+[data-theme="studio"] .section:nth-child(3){animation-delay:.36s}
+[data-theme="studio"] .section:nth-child(4){animation-delay:.42s}
+[data-theme="studio"] .section:nth-child(5){animation-delay:.48s}
+/* Staggered project entrance */
+[data-theme="studio"] .project:nth-child(1){animation:sSlide .7s .00s cubic-bezier(.22,1,.36,1) both}
+[data-theme="studio"] .project:nth-child(2){animation:sSlide .7s .06s cubic-bezier(.22,1,.36,1) both}
+[data-theme="studio"] .project:nth-child(3){animation:sSlide .7s .12s cubic-bezier(.22,1,.36,1) both}
+[data-theme="studio"] .project:nth-child(4){animation:sSlide .7s .18s cubic-bezier(.22,1,.36,1) both}
+[data-theme="studio"] .project:nth-child(5){animation:sSlide .7s .24s cubic-bezier(.22,1,.36,1) both}
+[data-theme="studio"] .project:nth-child(6){animation:sSlide .7s .30s cubic-bezier(.22,1,.36,1) both}
+[data-theme="studio"] .project:nth-child(7){animation:sSlide .7s .36s cubic-bezier(.22,1,.36,1) both}
+[data-theme="studio"] .project:nth-child(8){animation:sSlide .7s .42s cubic-bezier(.22,1,.36,1) both}
+
+@keyframes sFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes sSlide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Print / PDF */
+@page{margin:10mm 10mm;size:A4}
+@media print{
+  .controls{display:none!important}
+  .container{padding:16px 20px;max-width:100%}
+  *{animation:none!important;transition:none!important}
+  [data-theme="studio"] body::after{display:none}
+  [data-theme="studio"] .project::before{display:none}
+  [data-theme="studio"] .section-title{background:none;border-bottom:1px solid var(--section-line);display:block}
+  .project:hover{transform:none;box-shadow:none}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  /* Prevent breaks inside any content block */
+  .project{break-inside:avoid;page-break-inside:avoid}
+  .exp-item{break-inside:avoid;page-break-inside:avoid}
+  .edu-item{break-inside:avoid;page-break-inside:avoid}
+  .skill-group{break-inside:avoid;page-break-inside:avoid}
+  .header{break-inside:avoid;page-break-inside:avoid}
+  .summary{break-inside:avoid;page-break-inside:avoid}
+  /* Keep section title with its first content */
+  .section-title{break-after:avoid;page-break-after:avoid}
+  /* Prevent orphan/widow lines */
+  p,.project-desc,.exp-desc,.summary{orphans:3;widows:3}
+  /* Keep tags with their project */
+  .project-tags{break-before:avoid;page-break-before:avoid}
+  /* Tighten spacing to fit more per page */
+  .section{margin-bottom:24px}
+  .project{margin-bottom:0;padding:14px 0}
+}
+@media(max-width:600px){
+  .container{padding:24px 16px 40px}
+  .skills-grid{grid-template-columns:1fr}
+  .name{font-size:1.6rem}
+  .controls{top:8px;right:8px}
+  [data-theme="studio"] .name{font-size:2.2rem}
+  [data-theme="studio"] .project{padding:20px 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <button class="ctrl-btn" id="themeLight" title="Light mode">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  </button>
+  <button class="ctrl-btn" id="themeDark" title="Dark mode">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+  <button class="ctrl-btn" id="themeStudio" title="Studio mode">✦</button>
+  <button class="ctrl-btn" id="downloadBtn" title="Download PDF">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  </button>
+</div>
+
+<div class="container">
+  <header class="header">
+    <h1 class="name">Bogam Yashwanth</h1>
+    <div class="title">AI Product Builder · Prompt Engineer · No-Code/AI Developer</div>
+    <div class="contact">
+      <span>Hyderabad, Telangana, India</span>
+      <span>+91 70322 63595</span>
+      <span><a href="mailto:yashwanthbogam4@gmail.com">yashwanthbogam4@gmail.com</a></span>
+      <span><a href="https://github.com/yash1511-bogam" target="_blank">GitHub</a></span>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2 class="section-title">Professional Summary</h2>
+    <p class="summary">Self-driven technology enthusiast who has designed, built, and shipped 75+ software projects by leveraging AI development tools — including a live cloud storage application deployed on Vercel, a full SaaS incident operations platform with billing and Slack integration, and cross-platform mobile apps with real-time AI capabilities. Brings a unique cross-disciplinary perspective from a medical sciences background combined with hands-on experience in prompt engineering, product ideation, AI workflow design, and system architecture. Proficient in reading documentation, selecting the right tools and libraries for each problem, and directing AI coding agents to produce production-grade software. Seeking entry-level opportunities in AI product development, prompt engineering, or technical product management.</p>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>AI &amp; Prompt Engineering</h3>
+        <ul>
+          <li>Prompt Engineering (ChatGPT, Claude, Gemini, Copilot)</li>
+          <li>AI-Assisted Product Development &amp; Code Generation</li>
+          <li>LLM Workflow Design &amp; Orchestration</li>
+          <li>Multi-Agent System Direction &amp; Testing</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Product &amp; Project Management</h3>
+        <ul>
+          <li>Product Ideation &amp; Requirements Definition</li>
+          <li>System Architecture Decision-Making</li>
+          <li>Quality Assurance &amp; User Acceptance Testing</li>
+          <li>Agile / Iterative Development Cycles</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Cloud Platforms &amp; Deployment</h3>
+        <ul>
+          <li>Google Cloud Platform (GCP), AWS (SQS, Secrets Manager)</li>
+          <li>Cloudflare Workers, Vercel, DigitalOcean, Azure</li>
+          <li>Docker, Docker Compose, Terraform IaC</li>
+          <li>PostgreSQL, Redis, MongoDB, Qdrant</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Domain Knowledge</h3>
+        <ul>
+          <li>Healthcare &amp; Medical Research Background</li>
+          <li>GDPR &amp; EU AI Act Compliance Awareness</li>
+          <li>Technical Documentation &amp; Product Specs</li>
+          <li>Trilingual: English, Telugu, Hindi</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Experience</h2>
+    <div class="exp-item">
+      <div class="exp-title">Independent AI Product Builder</div>
+      <div class="exp-meta">Self-Directed · 2024 – Present</div>
+      <p class="exp-desc">Designed, directed, and shipped 75+ software projects using AI-assisted development workflows — prompt engineering combined with LLM code generation. Built full SaaS platforms, cross-platform mobile apps, developer CLI tools, browser extensions, and systems-level software. Managed end-to-end product lifecycle: ideation, architecture decisions, tool/library selection, AI agent direction, testing, deployment, and distribution across npm, PyPI, and Homebrew.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Projects</h2>
+    <p style="font-size:.82rem;color:var(--text3);margin-bottom:16px;font-style:italic">Built using AI-assisted development workflows — prompt engineering + LLM code generation</p>
+
+    <div class="project" data-project="trustloop">
+      <div class="project-header">
+        <div class="project-name">TrustLoop</div>
+        <a class="project-link" href="https://github.com/yash1511-bogam/trustloop" target="_blank">github.com/yash1511-bogam/trustloop</a>
+      </div>
+      <p class="project-desc">Full SaaS incident operations platform for AI product teams. 898-file codebase with workspace-scoped AI triage (OpenAI, Gemini, Anthropic), customer update publishing with approval workflows, Slack integration with slash commands and event handling, AWS SQS queue workers for async reminders and billing automation, Dodo Payments billing with plan management and grace periods, Stytch authentication (OTP, OAuth, SAML SSO), Playwright e2e tests, Vitest unit tests, Electron desktop app for macOS, Terraform infrastructure-as-code, and Fumadocs documentation site. 20+ Prisma database migrations demonstrating iterative product development.</p>
+      <div class="project-tags">
+        <span class="tag">Next.js 16</span><span class="tag">React 19</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span><span class="tag">Prisma</span><span class="tag">Redis</span><span class="tag">AWS SQS</span><span class="tag">Stytch</span><span class="tag">Slack API</span><span class="tag">Electron</span><span class="tag">Terraform</span><span class="tag">Docker</span>
+      </div>
+    </div>
+
+    <div class="project" data-project="cloudvault">
+      <div class="project-header">
+        <div class="project-name">CloudVault</div>
+        <a class="project-link" href="https://cloudvault-gcs.vercel.app" target="_blank">cloudvault-gcs.vercel.app</a>
+      </div>
+      <p class="project-desc">Google Cloud Storage management GUI deployed live on Vercel. Features OAuth and service account authentication, 25+ API routes for file operations (resumable uploads, download, rename, move, search, share), recycle bin with scheduled cleanup, signed URL generation, and Gemini AI chat integration for file management assistance. Dockerized for self-hosted deployment.</p>
+      <div class="project-tags">
+        <span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Google Cloud Storage API</span><span class="tag">NextAuth</span><span class="tag">Gemini AI</span><span class="tag">Docker</span>
+      </div>
+    </div>
+
+    <div class="project" data-project="agentcall">
+      <div class="project-header">
+        <div class="project-name">AgentCall</div>
+        <a class="project-link" href="https://github.com/yash1511-bogam/AgentCall" target="_blank">github.com/yash1511-bogam/AgentCall</a>
+      </div>
+      <p class="project-desc">AI phone agent that auto-answers incoming calls and converses in real-time using Gemini's multimodal live audio. Detects caller language and hot-swaps STT/TTS providers mid-call — supporting 22+ Indian languages via custom Sarvam AI LiveKit plugin and 40+ foreign languages via Google. Features live transcript streaming, IVR menu navigation via DTMF, and unconditional OTP blocking. Flutter mobile app with Riverpod state management and FastAPI backend with async SQLAlchemy and Alembic migrations.</p>
+      <div class="project-tags">
+        <span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">FastAPI</span><span class="tag">Python</span><span class="tag">LiveKit</span><span class="tag">Gemini</span><span class="tag">Sarvam AI</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span>
+      </div>
+    </div>
+
+    <div class="project" data-project="flowai">
+      <div class="project-header">
+        <div class="project-name">FlowAI — Business Autopilot</div>
+        <a class="project-link" href="https://github.com/yash1511-bogam/flowai" target="_blank">github.com/yash1511-bogam/flowai</a>
+      </div>
+      <p class="project-desc">Freelancer business management platform with invoicing, time tracking, client management, and project management. Turborepo monorepo with 6 apps (Next.js web, Express server, React Native mobile, Tauri desktop, TUI, Fumadocs) and 7 shared packages. End-to-end type-safe API using oRPC with Zod schema validation, Better Auth with Polar payments, and Cloudflare deployment via Alchemy.</p>
+      <div class="project-tags">
+        <span class="tag">Next.js 16</span><span class="tag">React Native</span><span class="tag">Express</span><span class="tag">oRPC</span><span class="tag">Prisma</span><span class="tag">Tauri</span><span class="tag">Turborepo</span><span class="tag">Cloudflare</span>
+      </div>
+    </div>
+
+    <div class="project" data-project="aiopsshield">
+      <div class="project-header">
+        <div class="project-name">AIOpsShield</div>
+        <a class="project-link" href="https://github.com/yash1511-bogam/AIOpsShield" target="_blank">github.com/yash1511-bogam/AIOpsShield</a>
+      </div>
+      <p class="project-desc">Enterprise AI governance platform that discovers Shadow AI usage across organizations and enforces real-time policies. Monorepo with 6 packages: network monitoring agent, Express backend with MongoDB, Vue.js policy enforcement dashboard, AI proxy layer, shared types, and Terraform infrastructure. Includes REST API, Redis caching, Docker Compose orchestration, and Doppler secrets management. Designed for EU AI Act compliance.</p>
+      <div class="project-tags">
+        <span class="tag">Vue.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">Redis</span><span class="tag">OPA</span><span class="tag">Terraform</span><span class="tag">Docker</span>
+      </div>
+    </div>
+
+    <div class="project" data-project="zipmount">
+      <div class="project-header">
+        <div class="project-name">ZipMount</div>
+        <a class="project-link" href="https://github.com/yash1511-bogam/zipmount" target="_blank">github.com/yash1511-bogam/zipmount</a>
+      </div>
+      <p class="project-desc">Mount ZIP files as virtual directories — ls, cat, vim, VS Code all work natively without extracting. Built on FUSE with zero data loss guarantees: CRC32 verification on every read, write-ahead journal for crash recovery, atomic saves with backup, fcntl exclusive locking, and dirty tracking. Published on PyPI and npm.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">FUSE</span><span class="tag">Node.js</span><span class="tag">PyPI</span><span class="tag">npm</span>
+      </div>
+    </div>
+
+    <div class="project" data-project="kanflow">
+      <div class="project-header">
+        <div class="project-name">KanFlow</div>
+        <a class="project-link" href="https://github.com/yash1511-bogam/kanflow" target="_blank">github.com/yash1511-bogam/kanflow</a>
+      </div>
+      <p class="project-desc">Terminal kanban board with Jira-style card editing, dynamic columns, Vim navigation, and terminal-aware theming (auto-detects Ghostty, iTerm2, Kitty, WezTerm, Alacritty). Published on npm, PyPI, and Homebrew. Includes AI agent plugins for Claude Code, Codex, Cursor, Windsurf, and Kiro.</p>
+      <div class="project-tags">
+        <span class="tag">TypeScript</span><span class="tag">OpenTUI React</span><span class="tag">npm</span><span class="tag">PyPI</span><span class="tag">Homebrew</span>
+      </div>
+    </div>
+
+    <div class="project" data-project="webos">
+      <div class="project-header">
+        <div class="project-name">WebOS</div>
+        <a class="project-link" href="https://webos.yashwanthbogam4.workers.dev" target="_blank">webos.yashwanthbogam4.workers.dev</a>
+      </div>
+      <p class="project-desc">Browser-based operating system with glassmorphism UI deployed on Cloudflare Workers. Features a microkernel with system call table (fork, exec, malloc, mmap, open, read, write), process manager with PCBs, thread manager, memory manager, virtual file system, and 8 built-in apps. Includes realistic boot sequence, location-based weather integration, and Web Audio sound effects.</p>
+      <div class="project-tags">
+        <span class="tag">JavaScript</span><span class="tag">CSS</span><span class="tag">Cloudflare Workers</span><span class="tag">Web Audio API</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Education</h2>
+    <div class="edu-item">
+      <div class="edu-title">MBBS (Dropout)</div>
+      <div class="edu-meta">Mallareddy Institute of Medical Sciences, Hyderabad · 2016 – 2022</div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-title">Intermediate Bi.P.C (Biology, Physics &amp; Chemistry) — Class 11 &amp; 12</div>
+      <div class="edu-meta">Sri Chaitanya Junior College, Hyderabad · 2014 – 2016</div>
+    </div>
+  </section>
+</div>
+
+<script>
+const html=document.documentElement;
+const btns={light:document.getElementById('themeLight'),dark:document.getElementById('themeDark'),studio:document.getElementById('themeStudio')};
+const dl=document.getElementById('downloadBtn');
+const themes=['light','dark','studio'];
+
+function setTheme(t){
+  html.dataset.theme=t;
+  localStorage.setItem('theme',t);
+  themes.forEach(k=>{btns[k].classList.toggle('active',k===t)});
+}
+
+const saved=localStorage.getItem('theme');
+if(saved&&themes.includes(saved)){setTheme(saved)}
+else if(matchMedia('(prefers-color-scheme:dark)').matches){setTheme('dark')}
+else{setTheme('light')}
+
+btns.light.addEventListener('click',()=>setTheme('light'));
+btns.dark.addEventListener('click',()=>setTheme('dark'));
+btns.studio.addEventListener('click',()=>setTheme('studio'));
+dl.addEventListener('click',()=>{document.title='Bogam Yashwanth Resume';window.print()});
+</script>
+</body>
+</html>

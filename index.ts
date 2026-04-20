@@ -11,13 +11,15 @@ import {
 } from "@opentui/core";
 import { spawn } from "child_process";
 import { platform } from "os";
+import { resolve } from "path";
 
 const projects = [
-  { name: "CloudVault", url: "https://cloudvault-gcs.vercel.app" },
-  { name: "AI Memory Platform", url: "https://github.com/yash1511-bogam/ai-memory-platform" },
-  { name: "WebOS", url: "https://github.com/yash1511-bogam/webos" },
-  { name: "SaaS Idea Validator", url: "https://github.com/yash1511-bogam/saas-idea-validator" },
-  { name: "AIOpsShield", url: "" },
+  { name: "TrustLoop", desc: "AI-powered trust & feedback platform", url: "https://trustloop.yashbogam.me" },
+  { name: "CloudVault", desc: "Secure cloud storage with GCS backend", url: "https://cloudvault-gcs.vercel.app" },
+  { name: "AI Memory Platform", desc: "Persistent memory layer for AI agents", url: "https://github.com/yash1511-bogam/ai-memory-platform" },
+  { name: "WebOS", desc: "Browser-based operating system experience", url: "https://github.com/yash1511-bogam/webos" },
+  { name: "SaaS Idea Validator", desc: "Validate startup ideas with AI analysis", url: "https://github.com/yash1511-bogam/saas-idea-validator" },
+  { name: "AIOpsShield", desc: "AI-driven DevOps monitoring & protection", url: "" },
 ];
 
 let selectedIdx = 0;
@@ -38,13 +40,13 @@ function lerpColor(i: number, total: number): string {
   const lo = Math.floor(seg);
   const hi = Math.min(lo + 1, hexColors.length - 1);
   const f = seg - lo;
-  const a = hexToRgb(hexColors[lo]);
-  const b = hexToRgb(hexColors[hi]);
+  const a = hexToRgb(hexColors[lo]!);
+  const b = hexToRgb(hexColors[hi]!);
   const noise = () => Math.floor(Math.random() * 30) - 15;
   const clamp = (v: number) => Math.max(0, Math.min(255, v));
-  const r = clamp(Math.round(a[0] + (b[0] - a[0]) * f) + noise());
-  const g = clamp(Math.round(a[1] + (b[1] - a[1]) * f) + noise());
-  const bl = clamp(Math.round(a[2] + (b[2] - a[2]) * f) + noise());
+  const r = clamp(Math.round(a[0]! + (b[0]! - a[0]!) * f) + noise());
+  const g = clamp(Math.round(a[1]! + (b[1]! - a[1]!) * f) + noise());
+  const bl = clamp(Math.round(a[2]! + (b[2]! - a[2]!) * f) + noise());
   return `#${((1 << 24) | (r << 16) | (g << 8) | bl).toString(16).slice(1)}`;
 }
 
@@ -86,6 +88,7 @@ const nameBottomRow = new BoxRenderable(renderer, {
   id: "name-bottom-row",
   flexDirection: "row",
   justifyContent: "center",
+  marginBottom: 1,
 });
 main.add(nameBottomRow);
 
@@ -129,27 +132,37 @@ const location = new TextRenderable(renderer, {
 });
 main.add(location);
 
+const spacer = new TextRenderable(renderer, {
+  id: "spacer",
+  content: " ",
+  visible: false,
+});
+main.add(spacer);
+
 const projHeader = new TextRenderable(renderer, {
   id: "proj-hdr",
-  content: t`${bold(fg("#4DABF7")("━━━ PROJECTS ━━━"))}  ${dim("(↑↓ navigate · Enter open · q quit)")}`,
+  content: t`${bold(fg("#4DABF7")("━━━ PROJECTS ━━━"))}  ${dim("↑↓ navigate · Enter open · R resume · Y portfolio · q quit")}`,
   visible: false,
 });
 main.add(projHeader);
 
-let projContainer: BoxRenderable | null = null;
+const projContainer = new BoxRenderable(renderer, {
+  id: "proj-list",
+  flexDirection: "column",
+  alignItems: "center",
+  width: "100%",
+  flexGrow: 1,
+  flexShrink: 1,
+  gap: 0,
+  visible: false,
+});
+main.add(projContainer);
+
+let projCards: BoxRenderable[] = [];
 
 function renderProjects() {
-  if (projContainer) projContainer.destroyRecursively();
-  projContainer = new BoxRenderable(renderer, {
-    id: "proj-list",
-    flexDirection: "column",
-    alignItems: "center",
-    width: "100%",
-    flexGrow: 1,
-    flexShrink: 1,
-    gap: 0,
-    visible: animDone,
-  });
+  projCards.forEach(c => c.destroyRecursively());
+  projCards = [];
   projects.forEach((proj, i) => {
     const selected = i === selectedIdx;
     const card = new BoxRenderable(renderer, {
@@ -157,21 +170,21 @@ function renderProjects() {
       flexDirection: "column",
       width: "80%",
       flexShrink: 1,
-      ...(selected
-        ? { borderStyle: "rounded", borderColor: "#868E96", paddingX: 2, paddingY: 0 }
-        : { border: false, paddingX: 4, paddingY: 0 }),
+      border: false,
+      paddingX: 2,
+      paddingY: 0,
     });
     card.add(
       new TextRenderable(renderer, {
         id: `proj-${i}-name`,
         content: selected
-          ? t`${bold(fg("#4DABF7")(proj.name))}`
-          : t`${fg("#868E96")(proj.name)}`,
+          ? t`${fg("#4DABF7")("▸")} ${bold(fg("#4DABF7")(proj.name))}  ${dim(proj.desc)}`
+          : t`  ${fg("#CED4DA")(proj.name)}`,
       }),
     );
-    projContainer!.add(card);
+    projContainer.add(card);
+    projCards.push(card);
   });
-  main.add(projContainer);
 }
 
 function sleep(ms: number) {
@@ -180,20 +193,22 @@ function sleep(ms: number) {
 
 async function typewriterAnim() {
   for (let i = 0; i < word1.length; i++) {
-    topLetters[i].text = word1[i];
+    topLetters[i]!.text = word1[i]!;
     await sleep(150);
   }
   await sleep(200);
   for (let i = 0; i < word2.length; i++) {
-    bottomLetters[i].text = word2[i];
+    bottomLetters[i]!.text = word2[i]!;
     await sleep(150);
   }
   await sleep(300);
   animDone = true;
   tagline.visible = true;
   location.visible = true;
+  spacer.visible = true;
   projHeader.visible = true;
-  renderProjects();
+  projContainer.visible = true;
+  adjustLayout(renderer.width, renderer.height);
 }
 
 renderer.keyInput.on("keypress", (key: KeyEvent) => {
@@ -202,11 +217,30 @@ renderer.keyInput.on("keypress", (key: KeyEvent) => {
     process.exit(0);
   }
   if (!animDone) return;
-  if (key.name === "up" && selectedIdx > 0) { selectedIdx--; renderProjects(); }
-  if (key.name === "down" && selectedIdx < projects.length - 1) { selectedIdx++; renderProjects(); }
-  if (key.name === "return") openUrl(projects[selectedIdx].url);
+  const seq = (key as any).sequence || "";
+  if (key.name === "up" && seq === "\x1b[A" && selectedIdx > 0) { selectedIdx--; renderProjects(); }
+  if (key.name === "down" && seq === "\x1b[B" && selectedIdx < projects.length - 1) { selectedIdx++; renderProjects(); }
+  if (key.name === "return") openUrl(projects[selectedIdx]!.url);
+  if (key.name === "r") openUrl("file://" + resolve(import.meta.dir, "resume.html"));
+  if (key.name === "y") openUrl("https://yashbogam.me");
 });
 
-renderer.on("resize", () => { if (animDone) renderProjects(); });
+function adjustLayout(width: number, height: number) {
+  const small = width < 80;
+  const shortHeight = height < 25;
+
+  const font: "tiny" | "block" = small ? "tiny" : "block";
+  topLetters.forEach(l => { l.font = font; });
+  bottomLetters.forEach(l => { l.font = font; });
+
+  nameTopRow.visible = !shortHeight || !animDone;
+  nameBottomRow.visible = !shortHeight || !animDone;
+
+  if (animDone) renderProjects();
+}
+
+renderer.on("resize", (width: number, height: number) => {
+  adjustLayout(width, height);
+});
 
 typewriterAnim();

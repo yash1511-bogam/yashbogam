@@ -2,8 +2,6 @@
 set -e
 
 export HOME="${HOME:-$(eval echo ~)}"
-cd "$HOME"
-
 DIR="$HOME/.yash"
 
 if [ -d "$DIR/.git" ]; then
