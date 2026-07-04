@@ -223,12 +223,10 @@ renderer.keyInput.on("keypress", (key: KeyEvent) => {
 });
 
 function adjustLayout(width: number, height: number) {
-  const small = width < 80;
-  const shortHeight = height < 25;
-
-  const font: "tiny" | "block" = (small || shortHeight) ? "tiny" : "block";
-  topLetters.forEach(l => { l.font = font; });
-  bottomLetters.forEach(l => { l.font = font; });
+  // Keep the name at full "block" size at all times — it must not shrink after it appears,
+  // regardless of terminal width or height.
+  topLetters.forEach(l => { l.font = "block"; });
+  bottomLetters.forEach(l => { l.font = "block"; });
 
   // Always keep the name on top; the tagline, location, and projects render beneath it.
   nameTopRow.visible = true;
