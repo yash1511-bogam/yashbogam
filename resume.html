@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bogam Yashwanth — AI Product Builder</title>
-<meta name="description" content="AI Product Builder, Prompt Engineer, and No-Code/AI Developer building AI products like Retrace and TrustLoop.">
+<title>Bogam Yashwanth — AI Product Engineer</title>
+<meta name="description" content="AI Product Engineer and Full-Stack Developer building AI products like Retrace and TrustLoop.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -102,7 +102,14 @@ body{font-family:var(--body-font);background:var(--bg);color:var(--text);line-he
 .exp-item{margin-bottom:16px}
 .exp-title{font-weight:600;font-size:.95rem;font-family:var(--heading-font)}
 .exp-meta{font-size:.82rem;color:var(--text3);margin-bottom:4px}
+.exp-context{font-size:.82rem;color:var(--text2);font-style:italic;margin-bottom:6px}
 .exp-desc{font-size:.85rem;color:var(--text2)}
+.exp-list{list-style:none;font-size:.85rem;color:var(--text2);margin-top:6px}
+.exp-list li{padding:3px 0;line-height:1.6}
+.exp-list li::before{content:var(--li-bullet);color:var(--accent);font-weight:700;margin-right:2px}
+.proj-list{list-style:none;font-size:.85rem;color:var(--text2);margin:6px 0 10px;line-height:1.6}
+.proj-list li{padding:3px 0}
+.proj-list li::before{content:var(--li-bullet);color:var(--accent);font-weight:700;margin-right:2px}
 
 /* Education */
 .edu-item{margin-bottom:12px}
@@ -308,7 +315,7 @@ body{font-family:var(--body-font);background:var(--bg);color:var(--text);line-he
 <div class="container">
   <header class="header">
     <h1 class="name">Bogam Yashwanth</h1>
-    <div class="title">AI Product Builder · Prompt Engineer · No-Code/AI Developer</div>
+    <div class="title">AI Product Engineer · Full-Stack Developer · Prompt Engineering</div>
     <div class="contact">
       <span>Hyderabad, Telangana, India</span>
       <span>+91 70322 63595</span>
@@ -319,7 +326,7 @@ body{font-family:var(--body-font);background:var(--bg);color:var(--text);line-he
 
   <section class="section">
     <h2 class="section-title">Professional Summary</h2>
-    <p class="summary">AI product builder who designs and ships full-stack, production-grade software using AI-assisted development — prompt engineering paired with LLM code generation. Built Retrace, an execution replay engine for AI agents that records, replays, and forks agent runs to pinpoint the exact step that failed and prove a fix, and TrustLoop, a SaaS incident operations platform for AI product teams with workspace-scoped AI triage, customer status updates, billing, and Slack integration. Comfortable across the stack — Next.js/React frontends, Node.js/Fastify and Next.js backends, PostgreSQL with Prisma/Drizzle, Redis and queue workers, authentication, billing, and cloud deployment — and brings a cross-disciplinary perspective from a medical sciences background. Seeking a role in AI product development, prompt engineering, or technical product management.</p>
+    <p class="summary">AI product engineer who pivoted from medical school (MBBS) into software, drawn by how AI-assisted development compresses the path from idea to shipped product. Ships production-grade AI products by pairing prompt engineering with LLM code generation to accelerate delivery. Launched Retrace, an AI-agent execution-replay engine (Python/TypeScript SDKs on npm and PyPI), and TrustLoop, a SaaS incident platform streamlining AI triage, customer updates, billing, and Slack integration. Seeking a role in AI product development, prompt engineering, or technical product management.</p>
   </section>
 
   <section class="section">
@@ -362,7 +369,13 @@ body{font-family:var(--body-font);background:var(--bg);color:var(--text);line-he
     <div class="exp-item">
       <div class="exp-title">Independent AI Product Builder</div>
       <div class="exp-meta">Self-Directed · 2024 – Present</div>
-      <p class="exp-desc">Design, build, and ship full-stack, production-grade AI products using AI-assisted development workflows — prompt engineering combined with LLM code generation. Built Retrace, an execution replay engine for AI agents (record, replay, fork, and cascade-replay agent runs), and TrustLoop, a SaaS incident operations platform for AI product teams with AI triage, customer status pages, billing, and Slack integration. Own the end-to-end product lifecycle: ideation, system architecture, tool and library selection, AI agent direction, testing, deployment, and SDK distribution across npm and PyPI.</p>
+      <div class="exp-context">Solo founder-engineer building, deploying, and publishing production AI products end-to-end — no team, AI-assisted workflow.</div>
+      <ul class="exp-list">
+        <li>Launched <strong>Retrace</strong>, an AI-agent execution-replay engine, enabling failure pinpointing and fix validation for Python/TypeScript SDKs (npm/PyPI).</li>
+        <li>Engineered Retrace's platform, enabling buffered ingestion, 1536-dim semantic search with ~50% smaller halfvec storage (&lt;1% recall loss), and encrypted cold-storage archival.</li>
+        <li>Developed <strong>TrustLoop</strong>, a SaaS incident platform (898-file codebase), streamlining AI triage across 3 LLM providers (OpenAI, Gemini, Anthropic), customer updates, billing, and Slack integration.</li>
+        <li>Managed the end-to-end product lifecycle, from ideation to deployment and SDK distribution.</li>
+      </ul>
     </div>
   </section>
 
@@ -375,7 +388,12 @@ body{font-family:var(--body-font);background:var(--bg);color:var(--text);line-he
         <div class="project-name">Retrace</div>
         <a class="project-link" href="https://retraceai.tech" target="_blank">retraceai.tech</a>
       </div>
-      <p class="project-desc">Execution replay engine for AI agents. A single SDK wrapper records every LLM call, tool call, and error as spans in a trace; the dashboard replays the run like a video and lets you fork from any step — modifying an input and cascade-replaying everything downstream, while side-effecting tool calls replay their recorded output instead of re-firing against the real API. Buffered ingestion pipeline with backpressure, WebSocket + HTTP + OpenTelemetry transports, pgvector/HNSW semantic search, per-plan retention with encrypted cold-storage archival, a real-time enforcement/circuit-breaker gateway, and shareable public "tapes". Python and TypeScript SDKs.</p>
+      <ul class="proj-list">
+        <li>Enabled deterministic replay of non-deterministic agents by forking and re-executing only downstream LLM steps, eliminating duplicate real API writes.</li>
+        <li>Cut vector-search storage ~50% with halfvec embeddings (&lt;1% recall loss); differential replay plus a content-addressable store are designed to reduce fork-replay token cost by an estimated 70–90%.</li>
+        <li>Ensured stable bursty ingestion using a backpressured queue and WebSocket/HTTP/OpenTelemetry fallback.</li>
+        <li>Shipped Python and TypeScript SDKs to npm and PyPI.</li>
+      </ul>
       <div class="project-tags">
         <span class="tag">Next.js</span><span class="tag">Fastify</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span><span class="tag">pgvector</span><span class="tag">Drizzle</span><span class="tag">BullMQ</span><span class="tag">Redis</span><span class="tag">WebSocket</span><span class="tag">OpenTelemetry</span><span class="tag">Python SDK</span><span class="tag">Cloudflare R2</span>
       </div>
@@ -386,7 +404,12 @@ body{font-family:var(--body-font);background:var(--bg);color:var(--text);line-he
         <div class="project-name">TrustLoop</div>
         <a class="project-link" href="https://trustloop.yashbogam.me" target="_blank">trustloop.yashbogam.me</a>
       </div>
-      <p class="project-desc">Full SaaS incident operations platform for AI product teams. 898-file codebase with workspace-scoped AI triage (OpenAI, Gemini, Anthropic), customer update publishing with approval workflows, Slack integration with slash commands and event handling, AWS SQS queue workers for async reminders and billing automation, Dodo Payments billing with plan management and grace periods, Stytch authentication (OTP, OAuth, SAML SSO), Playwright e2e tests, Vitest unit tests, Electron desktop app for macOS, Terraform infrastructure-as-code, and Fumadocs documentation site. 20+ Prisma database migrations demonstrating iterative product development.</p>
+      <ul class="proj-list">
+        <li>Made incident workflows crash-safe: reminder and billing automation runs on AWS SQS workers, surviving retries instead of dying in-process.</li>
+        <li>Delivered workspace-scoped AI triage across 3 LLM providers (OpenAI, Gemini, Anthropic) with per-tenant keys.</li>
+        <li>Secured enterprise access with Stytch OTP/OAuth/SAML SSO and per-workspace plan and quota enforcement.</li>
+        <li>Built an 898-file monorepo with an Electron desktop app, Terraform IaC, Fumadocs docs, and Playwright/Vitest coverage.</li>
+      </ul>
       <div class="project-tags">
         <span class="tag">Next.js 16</span><span class="tag">React 19</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span><span class="tag">Prisma</span><span class="tag">Redis</span><span class="tag">AWS SQS</span><span class="tag">Stytch</span><span class="tag">Slack API</span><span class="tag">Electron</span><span class="tag">Terraform</span><span class="tag">Docker</span>
       </div>
@@ -396,7 +419,7 @@ body{font-family:var(--body-font);background:var(--bg);color:var(--text);line-he
   <section class="section">
     <h2 class="section-title">Education</h2>
     <div class="edu-item">
-      <div class="edu-title">MBBS (Dropout)</div>
+      <div class="edu-title">MBBS Program, Medical Sciences</div>
       <div class="edu-meta">Mallareddy Institute of Medical Sciences, Hyderabad · 2016 – 2022</div>
     </div>
     <div class="edu-item">

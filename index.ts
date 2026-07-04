@@ -115,7 +115,7 @@ for (let i = 0; i < word2.length; i++) {
 
 const tagline = new TextRenderable(renderer, {
   id: "tagline",
-  content: t`${bold(fg("#FAB005")("AI Product Builder"))} ${fg("#495057")("·")} ${bold(fg("#FAB005")("Prompt Engineer"))} ${fg("#495057")("·")} ${bold(fg("#FAB005")("No-Code/AI Developer"))}`,
+  content: t`${bold(fg("#FAB005")("AI Product Engineer"))} ${fg("#495057")("·")} ${bold(fg("#FAB005")("Full-Stack Developer"))} ${fg("#495057")("·")} ${bold(fg("#FAB005")("Prompt Engineering"))}`,
   visible: false,
 });
 main.add(tagline);
