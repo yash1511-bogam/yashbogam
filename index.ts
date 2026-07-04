@@ -137,7 +137,7 @@ main.add(spacer);
 
 const projHeader = new TextRenderable(renderer, {
   id: "proj-hdr",
-  content: t`${bold(fg("#4DABF7")("━━━ PROJECTS ━━━"))}  ${dim("↑↓ navigate · Enter open · R resume · Y portfolio · q quit")}`,
+  content: t`${bold(fg("#4DABF7")("━━━ PROJECTS ━━━"))}  ${dim("↑↓ navigate · Enter open · R resume · Y website · C contact · q quit")}`,
   visible: false,
 });
 main.add(projHeader);
@@ -219,18 +219,20 @@ renderer.keyInput.on("keypress", (key: KeyEvent) => {
   if (key.name === "return") openUrl(projects[selectedIdx]!.url);
   if (key.name === "r") openUrl("file://" + resolve(import.meta.dir, "resume.html"));
   if (key.name === "y") openUrl("https://yashbogam.me");
+  if (key.name === "c") openUrl("mailto:hello@yashbogam.me");
 });
 
 function adjustLayout(width: number, height: number) {
   const small = width < 80;
   const shortHeight = height < 25;
 
-  const font: "tiny" | "block" = small ? "tiny" : "block";
+  const font: "tiny" | "block" = (small || shortHeight) ? "tiny" : "block";
   topLetters.forEach(l => { l.font = font; });
   bottomLetters.forEach(l => { l.font = font; });
 
-  nameTopRow.visible = !shortHeight || !animDone;
-  nameBottomRow.visible = !shortHeight || !animDone;
+  // Always keep the name on top; the tagline, location, and projects render beneath it.
+  nameTopRow.visible = true;
+  nameBottomRow.visible = true;
 
   if (animDone) renderProjects();
 }
