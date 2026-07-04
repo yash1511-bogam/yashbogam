@@ -14,12 +14,8 @@ import { platform } from "os";
 import { resolve } from "path";
 
 const projects = [
-  { name: "TrustLoop", desc: "AI-powered trust & feedback platform", url: "https://trustloop.yashbogam.me" },
-  { name: "CloudVault", desc: "Secure cloud storage with GCS backend", url: "https://cloudvault-gcs.vercel.app" },
-  { name: "AI Memory Platform", desc: "Persistent memory layer for AI agents", url: "https://github.com/yash1511-bogam/ai-memory-platform" },
-  { name: "WebOS", desc: "Browser-based operating system experience", url: "https://github.com/yash1511-bogam/webos" },
-  { name: "SaaS Idea Validator", desc: "Validate startup ideas with AI analysis", url: "https://github.com/yash1511-bogam/saas-idea-validator" },
-  { name: "AIOpsShield", desc: "AI-driven DevOps monitoring & protection", url: "" },
+  { name: "Retrace", desc: "Execution replay engine for AI agents — record, replay & fork runs", url: "https://retraceai.tech" },
+  { name: "TrustLoop", desc: "Incident operations platform for AI product teams", url: "https://trustloop.yashbogam.me" },
 ];
 
 let selectedIdx = 0;

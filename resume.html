@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bogam Yashwanth — AI Product Builder</title>
-<meta name="description" content="AI Product Builder, Prompt Engineer, and No-Code/AI Developer with 75+ shipped projects.">
+<meta name="description" content="AI Product Builder, Prompt Engineer, and No-Code/AI Developer building AI products like Retrace and TrustLoop.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -175,6 +175,12 @@ body{font-family:var(--body-font);background:var(--bg);color:var(--text);line-he
 [data-theme="studio"] .project:hover .tag{border-color:var(--proj-tag-border);color:var(--proj-tag-text);background:var(--proj-tag-bg)}
 
 /* ── Per-project gradients ── */
+/* Retrace — AI agent replay — deep teal */
+[data-theme="studio"] .project[data-project="retrace"]{
+  --proj-gradient:linear-gradient(135deg,#042f2e 0%,#064e3b 30%,#065f46 60%,#0d9488 100%);
+  --proj-border:#14b8a6;--proj-glow:rgba(20,184,166,.15);
+  --proj-tag-border:rgba(45,212,191,.3);--proj-tag-text:#5eead4;--proj-tag-bg:rgba(20,184,166,.12);
+}
 /* TrustLoop — SaaS/incident ops — deep indigo to violet */
 [data-theme="studio"] .project[data-project="trustloop"]{
   --proj-gradient:linear-gradient(135deg,#1e1b4b 0%,#312e81 30%,#4c1d95 60%,#5b21b6 100%);
@@ -313,7 +319,7 @@ body{font-family:var(--body-font);background:var(--bg);color:var(--text);line-he
 
   <section class="section">
     <h2 class="section-title">Professional Summary</h2>
-    <p class="summary">Self-driven technology enthusiast who has designed, built, and shipped 75+ software projects by leveraging AI development tools — including a live cloud storage application deployed on Vercel, a full SaaS incident operations platform with billing and Slack integration, and cross-platform mobile apps with real-time AI capabilities. Brings a unique cross-disciplinary perspective from a medical sciences background combined with hands-on experience in prompt engineering, product ideation, AI workflow design, and system architecture. Proficient in reading documentation, selecting the right tools and libraries for each problem, and directing AI coding agents to produce production-grade software. Seeking entry-level opportunities in AI product development, prompt engineering, or technical product management.</p>
+    <p class="summary">Self-driven technology enthusiast who has designed, built, and shipped 75+ software projects by leveraging AI development tools — including Retrace, an execution replay engine for AI agents that records, replays, and forks agent runs, and TrustLoop, a full SaaS incident operations platform with workspace-scoped AI triage, billing, and Slack integration. Brings a unique cross-disciplinary perspective from a medical sciences background combined with hands-on experience in prompt engineering, product ideation, AI workflow design, and system architecture. Proficient in reading documentation, selecting the right tools and libraries for each problem, and directing AI coding agents to produce production-grade software. Seeking entry-level opportunities in AI product development, prompt engineering, or technical product management.</p>
   </section>
 
   <section class="section">
@@ -371,10 +377,21 @@ body{font-family:var(--body-font);background:var(--bg);color:var(--text);line-he
     <h2 class="section-title">Projects</h2>
     <p style="font-size:.82rem;color:var(--text3);margin-bottom:16px;font-style:italic">Built using AI-assisted development workflows — prompt engineering + LLM code generation</p>
 
+    <div class="project" data-project="retrace">
+      <div class="project-header">
+        <div class="project-name">Retrace</div>
+        <a class="project-link" href="https://retraceai.tech" target="_blank">retraceai.tech</a>
+      </div>
+      <p class="project-desc">Execution replay engine for AI agents. A single SDK wrapper records every LLM call, tool call, and error as spans in a trace; the dashboard replays the run like a video and lets you fork from any step — modifying an input and cascade-replaying everything downstream, while side-effecting tool calls replay their recorded output instead of re-firing against the real API. Buffered ingestion pipeline with backpressure, WebSocket + HTTP + OpenTelemetry transports, pgvector/HNSW semantic search, per-plan retention with encrypted cold-storage archival, a real-time enforcement/circuit-breaker gateway, and shareable public "tapes". Python and TypeScript SDKs.</p>
+      <div class="project-tags">
+        <span class="tag">Next.js</span><span class="tag">Fastify</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span><span class="tag">pgvector</span><span class="tag">Drizzle</span><span class="tag">BullMQ</span><span class="tag">Redis</span><span class="tag">WebSocket</span><span class="tag">OpenTelemetry</span><span class="tag">Python SDK</span><span class="tag">Cloudflare R2</span>
+      </div>
+    </div>
+
     <div class="project" data-project="trustloop">
       <div class="project-header">
         <div class="project-name">TrustLoop</div>
-        <a class="project-link" href="https://github.com/yash1511-bogam/trustloop" target="_blank">github.com/yash1511-bogam/trustloop</a>
+        <a class="project-link" href="https://trustloop.yashbogam.me" target="_blank">trustloop.yashbogam.me</a>
       </div>
       <p class="project-desc">Full SaaS incident operations platform for AI product teams. 898-file codebase with workspace-scoped AI triage (OpenAI, Gemini, Anthropic), customer update publishing with approval workflows, Slack integration with slash commands and event handling, AWS SQS queue workers for async reminders and billing automation, Dodo Payments billing with plan management and grace periods, Stytch authentication (OTP, OAuth, SAML SSO), Playwright e2e tests, Vitest unit tests, Electron desktop app for macOS, Terraform infrastructure-as-code, and Fumadocs documentation site. 20+ Prisma database migrations demonstrating iterative product development.</p>
       <div class="project-tags">
@@ -382,81 +399,6 @@ body{font-family:var(--body-font);background:var(--bg);color:var(--text);line-he
       </div>
     </div>
 
-    <div class="project" data-project="cloudvault">
-      <div class="project-header">
-        <div class="project-name">CloudVault</div>
-        <a class="project-link" href="https://cloudvault-gcs.vercel.app" target="_blank">cloudvault-gcs.vercel.app</a>
-      </div>
-      <p class="project-desc">Google Cloud Storage management GUI deployed live on Vercel. Features OAuth and service account authentication, 25+ API routes for file operations (resumable uploads, download, rename, move, search, share), recycle bin with scheduled cleanup, signed URL generation, and Gemini AI chat integration for file management assistance. Dockerized for self-hosted deployment.</p>
-      <div class="project-tags">
-        <span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Google Cloud Storage API</span><span class="tag">NextAuth</span><span class="tag">Gemini AI</span><span class="tag">Docker</span>
-      </div>
-    </div>
-
-    <div class="project" data-project="agentcall">
-      <div class="project-header">
-        <div class="project-name">AgentCall</div>
-        <a class="project-link" href="https://github.com/yash1511-bogam/AgentCall" target="_blank">github.com/yash1511-bogam/AgentCall</a>
-      </div>
-      <p class="project-desc">AI phone agent that auto-answers incoming calls and converses in real-time using Gemini's multimodal live audio. Detects caller language and hot-swaps STT/TTS providers mid-call — supporting 22+ Indian languages via custom Sarvam AI LiveKit plugin and 40+ foreign languages via Google. Features live transcript streaming, IVR menu navigation via DTMF, and unconditional OTP blocking. Flutter mobile app with Riverpod state management and FastAPI backend with async SQLAlchemy and Alembic migrations.</p>
-      <div class="project-tags">
-        <span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">FastAPI</span><span class="tag">Python</span><span class="tag">LiveKit</span><span class="tag">Gemini</span><span class="tag">Sarvam AI</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span>
-      </div>
-    </div>
-
-    <div class="project" data-project="flowai">
-      <div class="project-header">
-        <div class="project-name">FlowAI — Business Autopilot</div>
-        <a class="project-link" href="https://github.com/yash1511-bogam/flowai" target="_blank">github.com/yash1511-bogam/flowai</a>
-      </div>
-      <p class="project-desc">Freelancer business management platform with invoicing, time tracking, client management, and project management. Turborepo monorepo with 6 apps (Next.js web, Express server, React Native mobile, Tauri desktop, TUI, Fumadocs) and 7 shared packages. End-to-end type-safe API using oRPC with Zod schema validation, Better Auth with Polar payments, and Cloudflare deployment via Alchemy.</p>
-      <div class="project-tags">
-        <span class="tag">Next.js 16</span><span class="tag">React Native</span><span class="tag">Express</span><span class="tag">oRPC</span><span class="tag">Prisma</span><span class="tag">Tauri</span><span class="tag">Turborepo</span><span class="tag">Cloudflare</span>
-      </div>
-    </div>
-
-    <div class="project" data-project="aiopsshield">
-      <div class="project-header">
-        <div class="project-name">AIOpsShield</div>
-        <a class="project-link" href="https://github.com/yash1511-bogam/AIOpsShield" target="_blank">github.com/yash1511-bogam/AIOpsShield</a>
-      </div>
-      <p class="project-desc">Enterprise AI governance platform that discovers Shadow AI usage across organizations and enforces real-time policies. Monorepo with 6 packages: network monitoring agent, Express backend with MongoDB, Vue.js policy enforcement dashboard, AI proxy layer, shared types, and Terraform infrastructure. Includes REST API, Redis caching, Docker Compose orchestration, and Doppler secrets management. Designed for EU AI Act compliance.</p>
-      <div class="project-tags">
-        <span class="tag">Vue.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">Redis</span><span class="tag">OPA</span><span class="tag">Terraform</span><span class="tag">Docker</span>
-      </div>
-    </div>
-
-    <div class="project" data-project="zipmount">
-      <div class="project-header">
-        <div class="project-name">ZipMount</div>
-        <a class="project-link" href="https://github.com/yash1511-bogam/zipmount" target="_blank">github.com/yash1511-bogam/zipmount</a>
-      </div>
-      <p class="project-desc">Mount ZIP files as virtual directories — ls, cat, vim, VS Code all work natively without extracting. Built on FUSE with zero data loss guarantees: CRC32 verification on every read, write-ahead journal for crash recovery, atomic saves with backup, fcntl exclusive locking, and dirty tracking. Published on PyPI and npm.</p>
-      <div class="project-tags">
-        <span class="tag">Python</span><span class="tag">FUSE</span><span class="tag">Node.js</span><span class="tag">PyPI</span><span class="tag">npm</span>
-      </div>
-    </div>
-
-    <div class="project" data-project="kanflow">
-      <div class="project-header">
-        <div class="project-name">KanFlow</div>
-        <a class="project-link" href="https://github.com/yash1511-bogam/kanflow" target="_blank">github.com/yash1511-bogam/kanflow</a>
-      </div>
-      <p class="project-desc">Terminal kanban board with Jira-style card editing, dynamic columns, Vim navigation, and terminal-aware theming (auto-detects Ghostty, iTerm2, Kitty, WezTerm, Alacritty). Published on npm, PyPI, and Homebrew. Includes AI agent plugins for Claude Code, Codex, Cursor, Windsurf, and Kiro.</p>
-      <div class="project-tags">
-        <span class="tag">TypeScript</span><span class="tag">OpenTUI React</span><span class="tag">npm</span><span class="tag">PyPI</span><span class="tag">Homebrew</span>
-      </div>
-    </div>
-
-    <div class="project" data-project="webos">
-      <div class="project-header">
-        <div class="project-name">WebOS</div>
-        <a class="project-link" href="https://webos.yashwanthbogam4.workers.dev" target="_blank">webos.yashwanthbogam4.workers.dev</a>
-      </div>
-      <p class="project-desc">Browser-based operating system with glassmorphism UI deployed on Cloudflare Workers. Features a microkernel with system call table (fork, exec, malloc, mmap, open, read, write), process manager with PCBs, thread manager, memory manager, virtual file system, and 8 built-in apps. Includes realistic boot sequence, location-based weather integration, and Web Audio sound effects.</p>
-      <div class="project-tags">
-        <span class="tag">JavaScript</span><span class="tag">CSS</span><span class="tag">Cloudflare Workers</span><span class="tag">Web Audio API</span>
-      </div>
     </div>
   </section>
 
